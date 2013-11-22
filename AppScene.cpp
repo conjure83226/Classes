@@ -42,6 +42,7 @@ void CAppScene::show(SceneName name)
 				g_tShow.width = SIDE_LONG;
                 g_tShow.height = side;
 			}
+            ScriptEngineManager::getInstance()->setScriptEngine(LuaEngine::getInstance());// 设置脚本引擎
 			pDirector->getOpenGLView()->setDesignResolutionSize(g_tShow.width, g_tShow.height, ResolutionPolicy::SHOW_ALL);
 		}
 		Scene *pScene = Scene::create();
@@ -87,7 +88,6 @@ void CAppScene::setup(Node *pLogic, LogicPos value)
 bool CAppScene::init()
 {
     LayerColor::init();
-    this->setOpacity(255);
 	return CAppSceneDefine::drawTransition(this, g_iNextScene);
 }
 

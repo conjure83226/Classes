@@ -1,6 +1,7 @@
 #ifndef __APP_SCENE_DEFINE_H__
 #define __APP_SCENE_DEFINE_H__
 
+#include "CCLuaEngine.h"
 #include "cocos2d.h"
 
 #define SIDE_SHORT 540 // 短边长度

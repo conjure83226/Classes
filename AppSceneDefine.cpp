@@ -20,6 +20,8 @@ bool CAppSceneDefine::drawTransition(LayerColor *pRoot, SceneName nextScene)
 	{
 		if (SCENE_LOGO == nextScene)
 		{
+            pRoot->setOpacity(255);
+            pRoot->setColor(Color3B::BLACK);
 			LayerColor *pLayer = LayerColor::create(Color4B(255, 0, 0, 255));
             pLayer->setContentSize(CAppScene::getLogicSize());
             CAppScene::setup(pLayer, LOGIC_CENTER);
@@ -34,17 +36,22 @@ bool CAppSceneDefine::drawTransition(LayerColor *pRoot, SceneName nextScene)
 // 更新场景
 void CAppSceneDefine::update(SceneName updateScene, bool isShow)
 {
-    log("更新场景:%i", updateScene);
 	if (SCENE_LOGO == updateScene)
 	{
         if (isShow)
         {
-            log("进入场景");
-            //Director::getInstance()->replaceScene(TransitionCrossFade::create(0.3f, HelloWorld::scene()));
+            const std::string filename = "logo_show.lua";
+            std::string path = FileUtils::getInstance()->fullPathForFilename(filename);
+            if (path == filename)
+            {
+                log("文件不存在");
+                return;
+            }
+            LuaEngine::getInstance()->executeScriptFile(path.c_str());
         }
         else
         {
-            log("退出场景");
+            LuaEngine::getInstance()->executeScriptFile(FileUtils::getInstance()->fullPathForFilename("logo_hide.lua").c_str());
         }
 	}
 }
